@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_13_080917) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_13_104025) do
+  create_table "articles", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "book_orders", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -36,6 +43,34 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_13_080917) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.string "title"
+    t.integer "Article_id", null: false
+    t.integer "News_id", null: false
+    t.integer "Event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["Article_id"], name: "index_comments_on_Article_id"
+    t.index ["Event_id"], name: "index_comments_on_Event_id"
+    t.index ["News_id"], name: "index_comments_on_News_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "title"
+    t.string "venue"
+    t.string "address"
+    t.date "scheduled_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "news", force: :cascade do |t|
+    t.string "title"
+    t.boolean "is_live"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -55,5 +90,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_13_080917) do
 
   add_foreign_key "book_orders", "books"
   add_foreign_key "book_reviews", "books"
+  add_foreign_key "comments", "Articles"
+  add_foreign_key "comments", "Events"
+  add_foreign_key "comments", "News"
   add_foreign_key "products", "users"
 end
