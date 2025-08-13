@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_13_080205) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_13_080506) do
   create_table "book_orders", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -41,6 +41,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_13_080205) do
     t.string "part_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "stock_quantity"
+    t.decimal "price"
+    t.index ["price"], name: "index_products_on_price"
   end
 
   add_foreign_key "book_orders", "books"
