@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_14_060522) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_14_092113) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -69,7 +69,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_14_060522) do
     t.date "scheduled_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "organizer"
+    t.text "organizer"
     t.index ["organizer"], name: "index_events_on_organizer"
   end
 
@@ -85,7 +85,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_14_060522) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "stock_quantity"
-    t.decimal "price"
+    t.string "price"
     t.integer "user_id", null: false
     t.index ["price"], name: "index_products_on_price"
     t.index ["user_id"], name: "index_products_on_user_id"
