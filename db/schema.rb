@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_14_054153) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_14_060522) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -64,16 +64,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_14_054153) do
 
   create_table "events", force: :cascade do |t|
     t.string "title"
-    t.string "venue"
+    t.string "location"
     t.string "address"
     t.date "scheduled_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "organizer"
+    t.index ["organizer"], name: "index_events_on_organizer"
   end
 
   create_table "news", force: :cascade do |t|
     t.string "title"
-    t.boolean "is_live"
+    t.boolean "is_live", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -90,10 +92,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_14_054153) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.text "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "email", null: false
+    t.text "email"
   end
 
   add_foreign_key "book_orders", "books"
