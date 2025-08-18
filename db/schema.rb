@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_17_041515) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_18_033204) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -62,6 +62,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_17_041515) do
     t.index ["News_id"], name: "index_comments_on_News_id"
   end
 
+# Could not dump table "customers" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
+
+
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.string "location"
@@ -73,12 +77,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_17_041515) do
     t.index ["organizer"], name: "index_events_on_organizer"
   end
 
+  create_table "libraries", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_libraries_on_name"
+  end
+
   create_table "news", force: :cascade do |t|
     t.string "title"
-    t.boolean "is_live", default: false
+    t.boolean "is_live", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+# Could not dump table "orders" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
+
 
   create_table "products", force: :cascade do |t|
     t.string "name"
@@ -91,17 +107,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_17_041515) do
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   add_foreign_key "book_orders", "books"
   add_foreign_key "book_reviews", "books"
   add_foreign_key "comments", "Articles"
   add_foreign_key "comments", "Events"
   add_foreign_key "comments", "News"
+  add_foreign_key "orders", "customers"
   add_foreign_key "products", "users"
 end
